@@ -73,10 +73,6 @@ const MiniCart = memo(() => {
               <span className="text-lg font-bold">Total:</span>
               <span className="text-xl font-bold text-blue-600">${cart.total.toFixed(2)}</span>
             </div>
-            
-            <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors">
-              Checkout
-            </button>
           </div>
         </>
       )}
