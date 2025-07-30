@@ -5,6 +5,7 @@ export default function useFilterParams() {
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [category, setCategory] = useState('');
   const [priceRange, setPriceRange] = useState({ min: '', max: '' });
+  const [debouncedPriceRange, setDebouncedPriceRange] = useState({ min: '', max: '' });
   const [sort, setSort] = useState('');
 
   useEffect(() => {
@@ -14,6 +15,14 @@ export default function useFilterParams() {
 
     return () => clearTimeout(timer);
   }, [search]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedPriceRange(priceRange);
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, [priceRange]);
 
   const resetFilters = useCallback(() => {
     setSearch('');
@@ -25,10 +34,10 @@ export default function useFilterParams() {
   const filterParams = useMemo(() => ({
     search: debouncedSearch,
     category,
-    minPrice: priceRange.min,
-    maxPrice: priceRange.max,
+    minPrice: debouncedPriceRange.min,
+    maxPrice: debouncedPriceRange.max,
     sort
-  }), [debouncedSearch, category, priceRange.min, priceRange.max, sort]);
+  }), [debouncedSearch, category, debouncedPriceRange.min, debouncedPriceRange.max, sort]);
 
   return {
     search,
